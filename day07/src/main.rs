@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug)]
 struct Node {
@@ -18,30 +17,23 @@ fn main() {
     let mut nodes = HashMap::new();
     for line in input.lines() {
         let (key, value) = parse_line(line);
-        nodes.insert(key,value);
+        nodes.insert(key, value);
     }
-
-    let mut color_set: HashSet<String> = HashSet::new();
-    for bag in nodes.keys() {
-        if bag == "shiny gold" {
-            continue
-        }
-        if node_contains_shiny_gold(&nodes, nodes.get(bag).unwrap()) {
-            color_set.insert(bag.to_string());
-        }
-    }
-    println!("Part 1: {:?}", color_set.len());
-    println!("Part 2: {}", count_bags(&nodes, nodes.get("shiny gold").unwrap()));
+    println!("Part 1: {}", count_colors(&nodes));
+    println!(
+        "Part 2: {}",
+        count_bags(&nodes, nodes.get("shiny gold").unwrap())
+    );
 }
 
-fn parse_line(line: &str) -> (String,Node) {
+fn parse_line(line: &str) -> (String, Node) {
     let (color, connections) = {
         let mut tokens = line.split(" bags contain ");
         (
             tokens.next().unwrap().to_string(),
             parse_connections(tokens.next().unwrap()),
         )
-    }; 
+    };
     (color.clone(), Node { color, connections })
 }
 
@@ -70,22 +62,38 @@ fn parse_single_connection(s: &str) -> Option<Connection> {
     Some(Connection { color, weight })
 }
 
-fn node_contains_shiny_gold(map: &HashMap<String,Node>, n: &Node) -> bool {
+fn count_colors(nodes: &HashMap<String, Node>) -> usize {
+    let mut color_set: HashSet<String> = HashSet::new();
+    for bag in nodes.keys() {
+        if bag == "shiny gold" {
+            continue;
+        }
+        if node_contains_shiny_gold(&nodes, nodes.get(bag).unwrap()) {
+            color_set.insert(bag.to_string());
+        }
+    }
+    color_set.len()
+}
+
+fn node_contains_shiny_gold(map: &HashMap<String, Node>, n: &Node) -> bool {
     if n.color == "shiny gold" {
-        return true
+        return true;
     }
     let mut results = Vec::new();
     for connection in &n.connections {
-        results.push(node_contains_shiny_gold(map, map.get(&connection.color).unwrap()));
+        results.push(node_contains_shiny_gold(
+            map,
+            map.get(&connection.color).unwrap(),
+        ));
     }
     results.contains(&true)
 }
 
-fn count_bags(map: &HashMap<String,Node>, n: &Node) -> usize {
+fn count_bags(map: &HashMap<String, Node>, n: &Node) -> usize {
     let mut total = 0;
     for connection in &n.connections {
         total += connection.weight;
-        total += connection.weight * count_bags(map, map.get(&connection.color).unwrap());      
+        total += connection.weight * count_bags(map, map.get(&connection.color).unwrap());
     }
     total
 }

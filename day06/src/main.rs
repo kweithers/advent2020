@@ -1,12 +1,10 @@
-use std::collections::HashSet;
-// use std::collections::HashMap;
 use counter::Counter;
+use std::collections::HashSet;
 
 fn main() {
     let input = include_str!("day06.txt");
     println!("Part 1: {}", part1(input));
     println!("Part 2: {}", part2(input));
-    
 }
 
 fn part1(input: &str) -> usize {
@@ -49,7 +47,7 @@ fn part2(input: &str) -> usize {
             current_group_size = 0;
             continue;
         }
-        current_group_size+=1;
+        current_group_size += 1;
         parse_line_part2(line, &mut current_group);
     }
 
@@ -62,7 +60,7 @@ fn part2(input: &str) -> usize {
 
 fn parse_line_part2(line: &str, current_group: &mut Counter<char, usize>) {
     for token in line.chars() {
-        current_group[&token]+=1;
+        current_group[&token] += 1;
     }
 }
 
@@ -70,7 +68,7 @@ fn count_all_yes(group: &Counter<char, usize>, group_size: &usize) -> usize {
     let mut result = 0;
     for (_, n) in group {
         if n == group_size {
-            result+=1;
+            result += 1;
         }
     }
     result
