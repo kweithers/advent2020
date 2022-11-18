@@ -1,0 +1,16 @@
+Using one of the smaller given examples:
+
+17,x,13,19
+
+t = 0 % 17
+t+2 = 0 % 13
+t+3 = 0 % 19
+
+t = 0 % 17
+t = -2 % 13
+t = -3 % 19
+
+Solve Via Chinese Remainder Theorem..
+(17*13*19 = 4199)
+
+t = 3417 mod (4199)
