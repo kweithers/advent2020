@@ -38,32 +38,29 @@ fn evaluate_expression(s: &str, part1: bool) -> usize {
         (nums, operations)
     };
 
-    if part1 {
-        // Do operations left-to-right
-        while nums.len() > 1 {
+    while nums.len() > 1 {
+        if part1 {
+            // Do operations left-to-right
             let x = nums.pop_front().unwrap();
             let y = nums.pop_front().unwrap();
             let op = operations.pop_front().unwrap();
             nums.push_front(evaluate_operation(x, y, op));
-        }
-        return nums[0];
-    } else {
-        while nums.len() > 1 {
+        } else {
             // Do all additions first
             if let Some(addition_index) = operations.iter().position(|&c| c == "+") {
                 let x = nums.remove(addition_index).unwrap();
                 let y = nums.remove(addition_index).unwrap();
                 let op = operations.remove(addition_index).unwrap();
-                nums.insert(addition_index, evaluate_operation(x,y,op));
+                nums.insert(addition_index, evaluate_operation(x, y, op));
             } else {
-            let x = nums.pop_front().unwrap();
-            let y = nums.pop_front().unwrap();
-            let op = operations.pop_front().unwrap();
-            nums.push_front(evaluate_operation(x, y, op));
+                let x = nums.pop_front().unwrap();
+                let y = nums.pop_front().unwrap();
+                let op = operations.pop_front().unwrap();
+                nums.push_front(evaluate_operation(x, y, op));
             }
         }
-        return nums[0];
     }
+    nums[0]
 }
 
 fn evaluate_operation(x: usize, y: usize, op: &str) -> usize {
