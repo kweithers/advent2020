@@ -1,0 +1,44 @@
+x   "rcqb": [
+        "dairy",
+    ],
+
+x    "tfqsb": [
+        ----"peanuts",
+        ----"fish",
+        "shellfish",
+    ],
+
+x    "zqzmzl": [
+        ----"nuts",
+        "wheat",
+    ],
+
+x    "xhnk": [
+        ----"fish",
+        "sesame",
+        ----"wheat",
+    ],
+
+x    "qjvvcvz": [
+        "nuts",
+    ],
+
+x    "nrl": [
+        "fish",
+    ],
+
+x    "cltx": [
+        ----"peanuts",
+        "eggs",
+        ----"fish",
+        ----"shellfish",
+    ],
+
+x    "tsqpn": [
+        ----"dairy",
+        "peanuts",
+        ----"sesame",
+    ],
+
+dairy,eggs,fish,nuts,peanuts,sesame,shellfish,wheat
+rcqb,cltx,nrl,qjvvcvz,tsqpn,xhnk,tfqsb,zqzmzl
